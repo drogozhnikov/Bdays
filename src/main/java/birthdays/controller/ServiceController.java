@@ -85,13 +85,13 @@ public class ServiceController {
         } catch (SQLException e) {
             setInfo(Status.ERROR, "Database did something bad. Update Failed");
         }
+        refresh();
     }
 
     public void delete(BDayUnit unit) {
         try {
             databaseController.deleteUnit(unit.getId());
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -100,7 +100,7 @@ public class ServiceController {
             ArrayList<BDayUnit> temp = databaseController.selectAll();
             birthdaysTable.refreshTable(temp);
         } catch (SQLException e) {
-            setInfo(Status.ERROR, "Database did something bad. Refresh Failed");
+//            setInfo(Status.ERROR, "Database did something bad. Refresh Failed");
         }
     }
 
@@ -187,6 +187,7 @@ public class ServiceController {
             }
         } catch (SQLException e) {
             setInfo(Status.ERROR, "Database did something bad. Search Failed");
+            e.printStackTrace();
         }
         birthdaysTable.refreshTable(foundedFields);
         birthdaysRootView.setInfo(Status.READY);

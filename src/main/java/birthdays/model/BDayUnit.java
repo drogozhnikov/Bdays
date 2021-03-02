@@ -2,11 +2,16 @@ package birthdays.model;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
+import javax.management.StringValueExp;
 import java.sql.Date;
 import java.util.Objects;
 
 public class BDayUnit implements Comparable<BDayUnit> {
+
+    DateTimeFormatter formatter = DateTimeFormat.forPattern("dd.MM.yyyy");
 
     private int id;
     private String firstName;
@@ -18,23 +23,25 @@ public class BDayUnit implements Comparable<BDayUnit> {
 
     private int daysTo;
 
-    public BDayUnit(int id, String firstName, String lastName, Date date, String phoneNumber) {
+    public BDayUnit(int id, String firstName, String lastName, String date, String phoneNumber, String description) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.date = new DateTime(date);
+        this.date = new DateTime(formatter.parseDateTime(date));
         this.phoneNumber = phoneNumber;
         this.fullName = getFullName();
+        this.description = description;
 
         daysTo = calculdateDayTo(date);
     }
 
-    public BDayUnit(String firstName, String lastName, Date date, String phoneNumber) {
+    public BDayUnit(String firstName, String lastName, String date, String phoneNumber, String description) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.date = new DateTime(date);
+        this.date = new DateTime(formatter.parseDateTime(date));
         this.phoneNumber = phoneNumber;
         this.fullName = getFullName();
+        this.description = description;
 
         daysTo = calculdateDayTo(date);
     }
@@ -57,8 +64,20 @@ public class BDayUnit implements Comparable<BDayUnit> {
         return lastName + " " + firstName;
     }
 
-    public Date getDate() {
-        return new Date(date.getMillis());
+    public String getDate() {
+        String day = String.valueOf(date.getDayOfMonth());
+        String month = String.valueOf(date.getMonthOfYear());
+         if(day.length()<2){
+             day = "0"+day;
+         }
+         if(month.length()<2){
+             month = "0"+month;
+         }
+        return day + "." + month + "." + date.getYear();
+    }
+
+    public DateTime getDateTime(){
+        return date;
     }
 
     public String getPhoneNumber() {
@@ -82,12 +101,12 @@ public class BDayUnit implements Comparable<BDayUnit> {
         this.lastName = lastName;
     }
 
-    public void setDate(Date date) {
-        this.date = new DateTime(date.getTime());
+    public void setFullName() {
+        fullName =  lastName + " " + firstName;
     }
 
-    public void setDate(DateTime date) {
-        this.date = date;
+    public void setDate(String date) {
+        this.date = new DateTime(formatter.parseDateTime(date));
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -102,9 +121,10 @@ public class BDayUnit implements Comparable<BDayUnit> {
         this.description = description;
     }
 
-    private int calculdateDayTo(Date date) {
+    private int calculdateDayTo(String date) {
+
         DateTime start = new DateTime();
-        DateTime temp = new DateTime(date.getTime());
+        DateTime temp = new DateTime(formatter.parseDateTime(date));
         DateTime end = new DateTime(start.getYear(),temp.getMonthOfYear(), temp.getDayOfMonth(),0,0,0);
 
         int daysBetwen = Days.daysBetween(start, end).getDays();
@@ -117,7 +137,17 @@ public class BDayUnit implements Comparable<BDayUnit> {
 
     @Override
     public String toString() {
-        return fullName + " " + date;
+        return "BDayUnit{" +
+                "formatter=" + formatter +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", date=" + date +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", description='" + description + '\'' +
+                ", daysTo=" + daysTo +
+                '}';
     }
 
     @Override

@@ -15,6 +15,7 @@ import javafx.scene.input.ClipboardContent;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BirthdayTable  extends TableView<BDayUnit> {
 
@@ -42,6 +43,7 @@ public class BirthdayTable  extends TableView<BDayUnit> {
     }
 
     public void refreshTable(ArrayList<BDayUnit> input) {
+        Collections.sort(input);
         ObservableList<BDayUnit> list = FXCollections.observableArrayList(input);
         super.setItems(list);
     }

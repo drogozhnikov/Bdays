@@ -4,11 +4,12 @@ import birthdays.controller.ServiceController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class BirthdaysRoot extends Application {
 
-    String cssPath = "file:///D:/Css/FlatBee-master/src/main/java/com/github/karlthebee/flatbee/FlatBee.css";
+
 
     public static void main(String[] args) {
         launch(args);
@@ -18,20 +19,28 @@ public class BirthdaysRoot extends Application {
         try {
 
             ServiceController serviceController = ServiceController.getInstance("\\src");
-//            String pandaPath = serviceController.resourceController.getFilePathNoStatic("panda.png");
-//            primaryStage.getIcons().add(new Image("file:"+pandaPath));
 
-            Scene panda = new Scene(ServiceController.start("\\src"), 900, 600);
-//                panda.getStylesheets().add(cssPath);
+            String bdaysIcoPath = serviceController.resourceController.getFilePathNoStatic("Bdays.png");
+            primaryStage.getIcons().add(new Image("file:"+bdaysIcoPath));
+
+            Scene birthdays = new Scene(ServiceController.start("\\src"), 900, 600);
+
+//            setCSS(serviceController, birthdays);
 
             primaryStage.setTitle("Birthdays");
-            primaryStage.setScene(panda);
+            primaryStage.setScene(birthdays);
             primaryStage.show();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    private static void setCSS(ServiceController serviceController, Scene scene){
+        String cssPath = "file:///" + serviceController.resourceController.getFilePathNoStatic("FlatBee.css");
+            cssPath = cssPath.replace("\\", "/");
+        scene.getStylesheets().add(cssPath);
     }
 
 }

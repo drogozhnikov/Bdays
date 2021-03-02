@@ -5,6 +5,7 @@ import birthdays.model.BDayUnit;
 import birthdays.model.Status;
 import birthdays.view.elements.DataManage;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
@@ -25,7 +26,6 @@ public class BirthdaysRootView extends BorderPane {
     private ContextMenu contextMenu = new ContextMenu();
     private MenuItem contextMenuItemDelete = new MenuItem(" Delete ");
     private MenuItem contextMenuItemUpdate = new MenuItem(" Update ");
-    private MenuItem startLinkMenuItem = new MenuItem(" StartLink ");
     private MenuItem descriptionMenuItem = new MenuItem(" ShowDescription ");
 
     //Menu
@@ -36,7 +36,6 @@ public class BirthdaysRootView extends BorderPane {
     private Button loadButton = new Button("Load");
     private Button saveButton = new Button("Save");
 
-    private ChoiceBox<String> ownersBox = new ChoiceBox<>();
     private TextField searchField = new TextField();
 
     private FileChooser xmlFile = new FileChooser();
@@ -56,11 +55,11 @@ public class BirthdaysRootView extends BorderPane {
         initSearchField();
         initMenuButtons();
         initSizes();
+        setStyles();
 
         initkeyCombinations();
 
         super.setTop(controlMenu);
-        setAlignment(info, Pos.BOTTOM_CENTER);
         super.setBottom(info);
         super.setCenter(birthdaysTable);
     }
@@ -70,7 +69,7 @@ public class BirthdaysRootView extends BorderPane {
     }
 
     private void initMenuButtons() {
-        controlMenu.getChildren().addAll(addButton, saveButton, ownersBox, searchField, loadButton);
+        controlMenu.getChildren().addAll(addButton, saveButton, searchField, loadButton);
     }
 
     private void initSearchField() {
@@ -129,11 +128,11 @@ public class BirthdaysRootView extends BorderPane {
                     xmlFile.setInitialFileName("XMLBackUp.xml");
                     String filePath = null;
                     try {
-                        filePath = xmlFile.showOpenDialog(null).getAbsolutePath();
+                        filePath = xmlFile.showSaveDialog(null).getAbsolutePath();
                     } catch (NullPointerException e) {
                         setInfo(Status.CANCELED);
                     }
-                    if (filePath != null && filePath.equals("")) {
+                    if (filePath != null && !filePath.equals("")) {
                         serviceController.saveToDirectory(filePath);
                     }
                 }
@@ -232,7 +231,7 @@ public class BirthdaysRootView extends BorderPane {
             super.setTop(temp);
         });
 
-        contextMenu.getItems().addAll(contextMenuItemUpdate, startLinkMenuItem, descriptionMenuItem, contextMenuItemDelete);
+        contextMenu.getItems().addAll(contextMenuItemUpdate, descriptionMenuItem, contextMenuItemDelete);
         birthdaysTable.setOnContextMenuRequested(event -> contextMenu.show(birthdaysTable, event.getScreenX(), event.getScreenY()));
     }
 
@@ -240,13 +239,11 @@ public class BirthdaysRootView extends BorderPane {
         addButton.setMaxWidth(Double.MAX_VALUE);
         saveButton.setMaxWidth(Double.MAX_VALUE);
         loadButton.setMaxWidth(Double.MAX_VALUE);
-        ownersBox.setMaxWidth(100);
         searchField.setMaxWidth(Double.MAX_VALUE);
 
         HBox.setHgrow(addButton, Priority.ALWAYS);
         HBox.setHgrow(saveButton, Priority.ALWAYS);
         HBox.setHgrow(loadButton, Priority.ALWAYS);
-        HBox.setHgrow(ownersBox, Priority.ALWAYS);
         HBox.setHgrow(searchField, Priority.ALWAYS);
     }
 
@@ -271,4 +268,8 @@ public class BirthdaysRootView extends BorderPane {
         super.setTop(controlMenu);
     }
 
+    private void setStyles(){
+        setAlignment(info, Pos.BOTTOM_CENTER);
+        setMargin(dataManage, new Insets(2));
+    }
 }

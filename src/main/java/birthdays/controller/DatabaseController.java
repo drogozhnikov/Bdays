@@ -26,13 +26,14 @@ public class DatabaseController {
     public ArrayList<BDayUnit> selectAll() throws SQLException {
         try (Statement statement = this.connection.createStatement()) {
             ArrayList<BDayUnit> dataList = new ArrayList<BDayUnit>();
-            ResultSet resultSet = statement.executeQuery("SELECT id, first_name, last_name, b_day, phone_number FROM bdays");
+            ResultSet resultSet = statement.executeQuery("SELECT id, first_name, last_name, b_day, phone_number,description FROM bdays");
             while (resultSet.next()) {
                 dataList.add(new BDayUnit(resultSet.getInt("id"),
                         resultSet.getString("first_name"),
                         resultSet.getString("last_name"),
-                        resultSet.getDate("b_day"),
-                        resultSet.getString("phone_number")));
+                        resultSet.getString("b_day"),
+                        resultSet.getString("phone_number"),
+                        resultSet.getString("description")));
             }
             Collections.reverse(dataList);
             return dataList;
@@ -43,12 +44,13 @@ public class DatabaseController {
 
     public void addUnit(BDayUnit unit) throws SQLException {
         try (PreparedStatement statement = this.connection.prepareStatement(
-                "INSERT INTO bdays('first_name','last_name','b_day','phone_number')" +
-                        "VALUES(?,?,?,?)")) {
+                "INSERT INTO bdays('first_name','last_name','b_day','phone_number','description')" +
+                        "VALUES(?,?,?,?,?)")) {
             statement.setObject(1, unit.getFirstName());
             statement.setObject(2, unit.getLastName());
             statement.setObject(3, unit.getDate());
             statement.setObject(4, unit.getPhoneNumber());
+            statement.setObject(5, unit.getDescription());
             statement.execute();
 
         } catch (SQLException e) {
@@ -58,12 +60,11 @@ public class DatabaseController {
 
     public ArrayList<BDayUnit> search(String value) throws SQLException {
 
-        String query = "select distinct id, first_name, last_name, b_day, phone_number from bdays where " +
+        String query = "select distinct id, first_name, last_name, b_day, phone_number, description from bdays where " +
                     "first_name like ('%" + value + "%') or " +
                     "last_name like ('%" + value + "%') or " +
                     "b_day like ('%" + value + "%') or " +
-                    "phone_number like ('%" + value + "%') or ";
-
+                    "phone_number like ('%" + value + "%')";
 
         try (Statement statement = this.connection.createStatement()) {
             ArrayList<BDayUnit> dataList = new ArrayList<>();
@@ -72,8 +73,9 @@ public class DatabaseController {
                 dataList.add(new BDayUnit(
                         resultSet.getString("first_name"),
                         resultSet.getString("last_name"),
-                        resultSet.getDate("b_day"),
-                        resultSet.getString("phone_number")));
+                        resultSet.getString("b_day"),
+                        resultSet.getString("phone_number"),
+                        resultSet.getString("description")));
             }
             Collections.reverse(dataList);
             return dataList;
@@ -101,13 +103,15 @@ public class DatabaseController {
                 "UPDATE bdays SET first_name = ?, " +
                         "last_name = ? ," +
                         "b_day = ? ," +
-                        "phone_number = ?" +
+                        "phone_number = ? ," +
+                        "description = ?" +
                         " WHERE id = ?")) {
             statement.setObject(1, unit.getFirstName());
             statement.setObject(2, unit.getLastName());
             statement.setObject(3, unit.getDate());
             statement.setObject(4, unit.getPhoneNumber());
-            statement.setObject(5, unit.getId());
+            statement.setObject(5, unit.getDescription());
+            statement.setObject(6, unit.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw e;

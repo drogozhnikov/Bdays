@@ -26,18 +26,22 @@ public class XmlWriter {
         file = new File(filePath);
     }
 
-    public void saveBdays(List<BDayUnit> dataBase) throws Exception{
+    public void saveBdays(List<BDayUnit> dataBase) throws Exception, NullPointerException{
         Document doc = getDoc();
         Element rootElement = doc.createElementNS("","directory");
         doc.appendChild(rootElement);
 
         for(BDayUnit unit: dataBase){
+            if(unit.getPhoneNumber() == null){
+                unit.setPhoneNumber("");
+            }
             rootElement.appendChild((getLanguage(doc,unit)));
         }
 
         DOMSource source = new DOMSource(doc);
         StreamResult file = new StreamResult(this.file);
-        getTransformer().transform(source, file);
+        Transformer transformer = getTransformer();
+        transformer.transform(source, file);
     }
 
     private static Node getLanguage(Document doc, BDayUnit unit) {
@@ -46,7 +50,7 @@ public class XmlWriter {
         language.appendChild(getLanguageElements(doc, language, "id", String.valueOf(unit.getId())));
         language.appendChild(getLanguageElements(doc, language, "first_name", unit.getFirstName()));
         language.appendChild(getLanguageElements(doc, language, "last_name", unit.getLastName()));
-        language.appendChild(getLanguageElements(doc, language, "birthday", String.valueOf(unit.getDate().getTime())));
+        language.appendChild(getLanguageElements(doc, language, "birthday", unit.getDate()));
         language.appendChild(getLanguageElements(doc, language, "phone_num", unit.getPhoneNumber()));
         return language;
     }

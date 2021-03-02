@@ -3,6 +3,7 @@ package birthdays.view.elements;
 import birthdays.controller.ServiceController;
 import birthdays.model.BDayUnit;
 import birthdays.model.Status;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -13,6 +14,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -31,7 +34,7 @@ public class DataManage extends BorderPane {
 
     private TextField inputFirstName = new TextField();
     private TextField inputLastName = new TextField();
-    private TextField inputBirthday = new TextField();
+    private DatePicker inputBirthday = new DatePicker();
     private TextField inputPhone = new TextField();
 
     private TextArea inputDescription = new TextArea("Description");
@@ -45,16 +48,16 @@ public class DataManage extends BorderPane {
 
     private BDayUnit selectedUnit;
 
-    private int nameSize = 90;
-    private int ownerSize = 50;
-    private int linkSize = 500;
-    private int mailSize = 100;
-    private int accountSize = 100;
-    private int passwordSize = 50;
+    private int firstNameSize = 30;
+    private int lastNameSize = 30;
+    private int phoneSize = 40;
     private int descriptionSize = 500;
+    private int spacing = 1;
+    private int fieldSize = 300;
 
     public DataManage() {
         serviceController = ServiceController.getInstance();
+        initDatePicker();
         initActionButton();
         initCancelButton();
         initSizes();
@@ -65,15 +68,21 @@ public class DataManage extends BorderPane {
     }
 
     private void initPosition() {
-        HBox name = new HBox(firstNameLabel, inputFirstName);
-        HBox owner = new HBox(LastNameLabel, inputLastName);
-        HBox link = new HBox(birthdayLabel, inputBirthday);
-        HBox mail = new HBox(phoneLabel, inputPhone);
 
-        VBox left = new VBox(name, stayOnManage);
-        VBox center = new VBox(mail, link, clearWhenAction);
-        VBox right = new VBox(owner);
-        HBox top = new HBox(actionButton, clearButton, cancelButton);
+        HBox firstName = new HBox(spacing, firstNameLabel, inputFirstName);
+        HBox lastName = new HBox(spacing, LastNameLabel, inputLastName);
+        HBox birthday = new HBox(spacing, birthdayLabel, inputBirthday);
+        HBox phone = new HBox(spacing, phoneLabel, inputPhone);
+
+
+        VBox left = new VBox(spacing, phone, birthday);
+        VBox center = new VBox(spacing, firstName, lastName);
+        VBox right = new VBox(spacing, stayOnManage, clearWhenAction);
+        HBox top = new HBox(spacing, actionButton, clearButton, cancelButton);
+
+        setMargin(center, new Insets(2));
+        setMargin(right, new Insets(2));
+        setMargin(left, new Insets(2));
 
         super.setLeft(left);
         super.setCenter(center);
@@ -96,10 +105,10 @@ public class DataManage extends BorderPane {
         birthdayLabel.setAlignment(Pos.CENTER);
         phoneLabel.setAlignment(Pos.CENTER);
 
-        inputFirstName.setMaxWidth(Double.MAX_VALUE);
-        inputLastName.setMaxWidth(Double.MAX_VALUE);
-        inputBirthday.setMaxWidth(Double.MAX_VALUE);
-        inputPhone.setMaxWidth(Double.MAX_VALUE);
+        inputFirstName.setMaxWidth(fieldSize);
+        inputLastName.setMaxWidth(fieldSize);
+        inputBirthday.setMaxWidth(fieldSize);
+        inputPhone.setMaxWidth(fieldSize);
 
         HBox.setHgrow(inputFirstName, Priority.ALWAYS);
         HBox.setHgrow(inputLastName, Priority.ALWAYS);
@@ -115,6 +124,11 @@ public class DataManage extends BorderPane {
         stayOnManage.setMaxWidth(Double.MAX_VALUE);
 
         inputDescription.setPrefHeight(descriptionFieldSize);
+    }
+
+    private void initDatePicker(){
+        inputBirthday.setValue(LocalDate.of(2005, 6, 15));
+        inputBirthday.setShowWeekNumbers(true);
     }
 
 
@@ -166,10 +180,9 @@ public class DataManage extends BorderPane {
     }
 
     private void initFieldsValidation() {
-        validateField(inputFirstName, firstNameLabel.getText(), nameSize);
-        validateField(inputLastName, LastNameLabel.getText(), ownerSize);
-        validateField(inputBirthday, birthdayLabel.getText(), linkSize);
-        validateField(inputPhone, phoneLabel.getText(), mailSize);
+        validateField(inputFirstName, firstNameLabel.getText(), firstNameSize);
+        validateField(inputLastName, LastNameLabel.getText(), lastNameSize);
+        validateField(inputPhone, phoneLabel.getText(), phoneSize);
 
         inputDescription.setOnKeyReleased(event -> {
             if (inputDescription.getText().length() > descriptionSize) {
@@ -181,33 +194,29 @@ public class DataManage extends BorderPane {
 
     private BDayUnit prepareUnit() {
         BDayUnit newUnit = new BDayUnit();
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
-        DateTime dt = formatter.parseDateTime(inputBirthday.getText());
 
         newUnit.setFirstName(inputFirstName.getText());
         newUnit.setLastName(inputLastName.getText());
-        newUnit.setDate(dt);
+        newUnit.setDate(inputBirthday.getEditor().getText());
         newUnit.setPhoneNumber(inputPhone.getText());
         newUnit.setDescription(inputDescription.getText());
 
-        return newUnit;
+        newUnit.setFullName();
 
+        return newUnit;
     }
 
-    private boolean validate(BDayUnit newUnit) {
+    private boolean validate(BDayUnit newUnit){
 
         String fieldsMessage = "";
-        if (inputFirstName.getText().length() > nameSize) {
-            fieldsMessage += fieldsMessage + firstNameLabel.getText() + " field must contain no more than " + nameSize + " characters" + "\n";
+        if (inputFirstName.getText().length() > firstNameSize) {
+            fieldsMessage += fieldsMessage + firstNameLabel.getText() + " field must contain no more than " + firstNameSize + " characters" + "\n";
         }
-        if (inputLastName.getText().length() > ownerSize) {
-            fieldsMessage += fieldsMessage + LastNameLabel.getText() + " field must contain no more than " + ownerSize + " characters" + "\n";
+        if (inputLastName.getText().length() > lastNameSize) {
+            fieldsMessage += fieldsMessage + LastNameLabel.getText() + " field must contain no more than " + lastNameSize + " characters" + "\n";
         }
-        if (inputBirthday.getText().length() > linkSize) {
-            fieldsMessage += fieldsMessage + birthdayLabel.getText() + " field must contain no more than " + linkSize + " characters" + "\n";
-        }
-        if (inputPhone.getText().length() > mailSize) {
-            fieldsMessage += fieldsMessage + phoneLabel.getText() + " field must contain no more than " + mailSize + " characters" + "\n";
+        if (inputPhone.getText().length() > phoneSize) {
+            fieldsMessage += fieldsMessage + phoneLabel.getText() + " field must contain no more than " + phoneSize + " characters" + "\n";
         }
         if (inputDescription.getText().length() > descriptionSize) {
             fieldsMessage += fieldsMessage + "Description: field must contain no more than " + descriptionSize + " characters" + "\n";
@@ -219,16 +228,10 @@ public class DataManage extends BorderPane {
 
         String message = "Found problems with: ";
         if (newUnit.getFirstName() == null || newUnit.getFirstName().equals("")) {
-            message += "-name";
+            message += "-Full Name";
         }
         if (newUnit.getLastName() == null || newUnit.getLastName().equals("")) {
-            message += "-owner";
-        }
-        if (newUnit.getDate() == null || newUnit.getDate().equals("")) {
-            message += "-link";
-        }
-        if (newUnit.getPhoneNumber() == null || newUnit.getPhoneNumber().equals("")) {
-            message += "-mail";
+            message += "-LastName";
         }
         if (!message.equals("Found problems with: ")) {
             serviceController.alert(Status.INFO, message);
@@ -240,8 +243,11 @@ public class DataManage extends BorderPane {
             ArrayList<BDayUnit> units = serviceController.selectAll();
             if (units != null && units.size() > 0) {
                 for (BDayUnit unit : units) {
-                    if (unit.getDate().equals(newUnit.getDate())) {
-                        passwordAlert(newUnit, units);
+                    if (unit.getDate().equals(newUnit.getDate()) &&
+                            unit.getFirstName().equals(newUnit.getFirstName())&&
+                            unit.getLastName().equals(newUnit.getLastName())
+                    ) {
+                        exisitingUnitAlert(newUnit);
                         break;
                     }
                 }
@@ -259,23 +265,22 @@ public class DataManage extends BorderPane {
     }
 
     private void initUnitData(BDayUnit unit) {
+            DateTime dateTime = unit.getDateTime();
         inputFirstName.setText(unit.getFirstName());
         inputLastName.setText(unit.getLastName());
-        inputBirthday.setText(new DateTime(unit.getDate()).toString());
+        inputBirthday.setValue(LocalDate.of(dateTime.getYear(), dateTime.getMonthOfYear(), dateTime.getDayOfMonth()));
         inputPhone.setText(unit.getPhoneNumber());
         inputDescription.setText(unit.getDescription());
     }
 
-    public void passwordAlert(BDayUnit newUnits, ArrayList<BDayUnit> existingUnits) {
-        StringBuilder existingAccountsList = new StringBuilder();
-        for (BDayUnit unit : existingUnits) {
-            existingAccountsList.append(unit.toString()).append("\n");
-        }
+    public void exisitingUnitAlert(BDayUnit newUnits) {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Password already exist");
-        alert.setHeaderText("Are you sure you want to add a new account with a password that already exists in the database?");
-        alert.setContentText("new Account: " + newUnits.toString() + "\n" + " \n" + existingAccountsList);
+        alert.setTitle("Unit already exist");
+        alert.setHeaderText("Are you sure you want to add a new unit with a parametrs that already exists in the database?");
+        alert.setContentText("new Bboy: " + newUnits.getFirstName() + " " +
+                newUnits.getLastName() + " " +
+                newUnits.getDate());
 
         Optional<ButtonType> option = alert.showAndWait();
 
@@ -294,7 +299,7 @@ public class DataManage extends BorderPane {
         inputFirstName.clear();
         inputFirstName.clear();
         inputLastName.clear();
-        inputBirthday.clear();
+            initDatePicker();
         inputPhone.clear();
         inputDescription.clear();
     }

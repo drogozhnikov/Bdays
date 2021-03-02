@@ -1,199 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <directory>
-<directory>
-<id>32</id>
-<first_name>Александр</first_name>
-<last_name>Бойко</last_name>
-<birthday>965682000000</birthday>
-<phone_num>+375297723788</phone_num>
-</directory>
-<directory>
-<id>31</id>
-<first_name>Карина</first_name>
-<last_name>Рогожникова</last_name>
-<birthday>977263200000</birthday>
-<phone_num>+375293554393</phone_num>
-</directory>
-<directory>
-<id>30</id>
-<first_name>Ирина</first_name>
-<last_name>Рогожникова</last_name>
-<birthday>-735879600000</birthday>
-<phone_num>+375295082031</phone_num>
-</directory>
-<directory>
-<id>29</id>
-<first_name>Лилия</first_name>
-<last_name>Зарембовская</last_name>
-<birthday>-547700400000</birthday>
-<phone_num/>
-</directory>
-<directory>
-<id>28</id>
-<first_name>Вячеслав</first_name>
-<last_name>Рогожников</last_name>
-<birthday>-681274800000</birthday>
-<phone_num/>
-</directory>
-<directory>
-<id>27</id>
-<first_name>Аркадий</first_name>
-<last_name>Рогожников</last_name>
-<birthday>229208400000</birthday>
-<phone_num>+375293790881</phone_num>
-</directory>
-<directory>
-<id>26</id>
-<first_name>Наталия</first_name>
-<last_name>Бинкина</last_name>
-<birthday>607204800000</birthday>
-<phone_num/>
-</directory>
-<directory>
-<id>25</id>
-<first_name>Александр</first_name>
-<last_name>Заеленчиц</last_name>
-<birthday>411598800000</birthday>
-<phone_num/>
-</directory>
-<directory>
-<id>24</id>
-<first_name>Артемий</first_name>
-<last_name>Рогожников</last_name>
-<birthday>1016056800000</birthday>
-<phone_num>+375444615640</phone_num>
-</directory>
-<directory>
-<id>23</id>
-<first_name>Екатерина</first_name>
-<last_name>Рогожникова</last_name>
-<birthday>1183755600000</birthday>
-<phone_num>+375295952956</phone_num>
-</directory>
-<directory>
-<id>22</id>
-<first_name>Наталия</first_name>
-<last_name>Адамчик</last_name>
-<birthday>847404000000</birthday>
-<phone_num>+375297128445</phone_num>
-</directory>
-<directory>
-<id>21</id>
-<first_name>Ирка</first_name>
-<last_name>Гринчик</last_name>
-<birthday>797547600000</birthday>
-<phone_num>+375255166508</phone_num>
-</directory>
-<directory>
-<id>20</id>
-<first_name>Андрей</first_name>
-<last_name>Мамай</last_name>
-<birthday>775083600000</birthday>
-<phone_num>+375292768135</phone_num>
-</directory>
-<directory>
-<id>19</id>
-<first_name>Светлана </first_name>
-<last_name>Курач</last_name>
-<birthday>849132000000</birthday>
-<phone_num>+375295731272</phone_num>
-</directory>
-<directory>
-<id>18</id>
-<first_name>Янина</first_name>
-<last_name>Хамицевич</last_name>
-<birthday>840142800000</birthday>
-<phone_num>+375291596735</phone_num>
-</directory>
-<directory>
-<id>17</id>
-<first_name>Илья </first_name>
-<last_name>Годун</last_name>
-<birthday>801262800000</birthday>
-<phone_num>+375259456872</phone_num>
-</directory>
-<directory>
-<id>16</id>
-<first_name>Наталия</first_name>
-<last_name>Мазуркевич</last_name>
-<birthday>760658400000</birthday>
-<phone_num>+375298647438</phone_num>
-</directory>
-<directory>
-<id>15</id>
-<first_name>Александр</first_name>
-<last_name>Бодров</last_name>
-<birthday>761522400000</birthday>
-<phone_num>+375255197921</phone_num>
-</directory>
-<directory>
-<id>14</id>
-<first_name>Евгегния</first_name>
-<last_name>Бойко</last_name>
-<birthday>841179600000</birthday>
-<phone_num/>
-</directory>
-<directory>
-<id>13</id>
-<first_name>Алексей</first_name>
-<last_name>Лапушинский</last_name>
-<birthday>778280400000</birthday>
-<phone_num>+375296185629</phone_num>
-</directory>
-<directory>
-<id>12</id>
-<first_name>Татьяна </first_name>
-<last_name>Клещенок</last_name>
-<birthday>803509200000</birthday>
-<phone_num>+375291552657</phone_num>
-</directory>
-<directory>
-<id>11</id>
-<first_name>Валерий</first_name>
-<last_name>Берестевич</last_name>
-<birthday>778280400000</birthday>
-<phone_num>+375295676151</phone_num>
-</directory>
-<directory>
-<id>10</id>
-<first_name>Дария</first_name>
-<last_name>Годун</last_name>
-<birthday>751500000000</birthday>
-<phone_num>+375297946060</phone_num>
-</directory>
-<directory>
-<id>9</id>
-<first_name>Евгений</first_name>
-<last_name>Рогожников</last_name>
-<birthday>90882000000</birthday>
-<phone_num>+375298776103</phone_num>
-</directory>
-<directory>
-<id>8</id>
-<first_name>Иннесса</first_name>
-<last_name>Рогожникова</last_name>
-<birthday>240872400000</birthday>
-<phone_num>+375295520154</phone_num>
-</directory>
-<directory>
-<id>7</id>
-<first_name>Лизавета</first_name>
-<last_name>Зеленская</last_name>
-<birthday>962744400000</birthday>
-<phone_num>+375257552146</phone_num>
-</directory>
-<directory>
-<id>6</id>
-<first_name>Владислав</first_name>
-<last_name>Гринчик</last_name>
-<birthday>777416400000</birthday>
-<phone_num>+375297029634</phone_num>
-</directory>
-<directory>
-<id>5</id>
-<first_name>Ксения</first_name>
-<last_name>Гончарова</last_name>
-<birthday>845067600000</birthday>
-<phone_num>+375336003170</phone_num>
-</directory>
+    <directory>
+        <id>23</id>
+        <first_name>test</first_name>
+        <last_name>test</last_name>
+        <birthday>30.06.2005</birthday>
+        <phone_num/>
+    </directory>
+    <directory>
+        <id>21</id>
+        <first_name>vbvb</first_name>
+        <last_name>vbvb</last_name>
+        <birthday>15.06.2005</birthday>
+        <phone_num>vbvb</phone_num>
+    </directory>
+    <directory>
+        <id>4</id>
+        <first_name>Ксения</first_name>
+        <last_name>Гончарова</last_name>
+        <birthday>08.06.2000</birthday>
+        <phone_num/>
+    </directory>
+    <directory>
+        <id>1</id>
+        <first_name>test</first_name>
+        <last_name>test</last_name>
+        <birthday>25.06.2005</birthday>
+        <phone_num>test</phone_num>
+    </directory>
 </directory>

@@ -67,7 +67,7 @@ public class XmlReader {
             }
 
             try{
-                output.setDate(new Date(Long.parseLong(getTagValue("birthday", element))));
+                output.setDate(getTagValue("birthday", element));
             }catch (NullPointerException e){
                 System.out.println("id4");
             }
