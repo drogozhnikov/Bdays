@@ -47,6 +47,7 @@ public class BirthdaysRootView extends BorderPane {
     private Text info = new Text("Ready");
 
     public BirthdaysRootView() {
+        info.setText(serviceController.getNearestBirthdayMan());
         initTable();
         initAddButton();
         initContextMenu();
@@ -214,6 +215,7 @@ public class BirthdaysRootView extends BorderPane {
             } else {
                 setInfo(Status.READY);
             }
+            serviceController.setInfo(Status.INFO, serviceController.getNearestBirthdayMan());
         });
 
         contextMenuItemUpdate.setOnAction(event -> {
@@ -268,7 +270,7 @@ public class BirthdaysRootView extends BorderPane {
         super.setTop(controlMenu);
     }
 
-    private void setStyles(){
+    private void setStyles() {
         setAlignment(info, Pos.BOTTOM_CENTER);
         setMargin(dataManage, new Insets(2));
     }

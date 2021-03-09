@@ -9,7 +9,6 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -17,11 +16,11 @@ public class XmlReader {
 
     private final String filePath;
 
-    public XmlReader(String filePath){
+    public XmlReader(String filePath) {
         this.filePath = filePath;
     }
 
-    public ArrayList<BDayUnit> readBdays() throws Exception{
+    public ArrayList<BDayUnit> readBdays() throws Exception {
         NodeList nodeListTemp = getNodeList(filePath);
         ArrayList<BDayUnit> BdayUnitsList = new ArrayList<BDayUnit>();
         for (int i = 1; i < nodeListTemp.getLength(); i++) {
@@ -54,27 +53,27 @@ public class XmlReader {
 //                System.out.println("id");
 //            }
 
-            try{
+            try {
                 output.setFirstName(getTagValue("first_name", element));
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println("id2");
             }
 
-            try{
+            try {
                 output.setLastName(getTagValue("last_name", element));
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println("id3");
             }
 
-            try{
+            try {
                 output.setDate(getTagValue("birthday", element));
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println("id4");
             }
 
-            try{
+            try {
                 output.setPhoneNumber(getTagValue("phone_num", element));
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println("id5");
             }
 
@@ -82,7 +81,7 @@ public class XmlReader {
         return output;
     }
 
-    private NodeList getNodeList(String filepath) throws Exception{
+    private NodeList getNodeList(String filepath) throws Exception {
 
         File xmlFile = new File(filepath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

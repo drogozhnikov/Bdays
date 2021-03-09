@@ -28,6 +28,7 @@ public class ServiceController {
     private BirthdayTable birthdaysTable;
 
     public static ServiceController instance = null;
+
     public static synchronized ServiceController getInstance(String resourcePath) {
 
         if (instance == null) {
@@ -35,6 +36,7 @@ public class ServiceController {
         }
         return instance;
     }
+
     public static synchronized ServiceController getInstance() {
         return instance;
     }
@@ -47,9 +49,9 @@ public class ServiceController {
             backupController = BackupController.getInstance(resourceController.getFilePathNoStatic("XMLBackUp.xml"));
             options = propertiesController.initOptions();
         } catch (SQLException sql) {
-//            setInfo(Status.ERROR, "Database did something bad. Init Failed");
+            setInfo(Status.ERROR, "Database did something bad. Init Failed");
         } catch (IOException ioe) {
-//            setInfo(Status.ERROR, "Init Error. Some files or paths is corrupted");
+            setInfo(Status.ERROR, "Init Error. Some files or paths is corrupted");
         }
         options.setScreehHeight(checkDimension(true));
         options.setScreenWidth(checkDimension(false));
@@ -58,11 +60,11 @@ public class ServiceController {
         refresh();
     }
 
-    public ArrayList<BDayUnit> selectAll(){
+    public ArrayList<BDayUnit> selectAll() {
         ArrayList<BDayUnit> result = null;
-        try{
+        try {
             result = databaseController.selectAll();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             setInfo(Status.ERROR, "Database did something bad. Create Failed");
         }
         return result;
@@ -100,7 +102,7 @@ public class ServiceController {
             ArrayList<BDayUnit> temp = databaseController.selectAll();
             birthdaysTable.refreshTable(temp);
         } catch (SQLException e) {
-//            setInfo(Status.ERROR, "Database did something bad. Refresh Failed");
+            setInfo(Status.ERROR, "Database did something bad. Refresh Failed");
         }
     }
 
@@ -159,16 +161,12 @@ public class ServiceController {
                 setInfo(Status.WARNING, "XML-file broken or empty");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             setInfo(Status.ERROR, "Database did something bad or file is corrupted");
         } catch (Exception e) {
-            e.printStackTrace();
             setInfo(Status.ERROR, "Database did something bad or file is corrupted");
         }
         refresh();
     }
-
-
 
     //special
 
@@ -187,13 +185,10 @@ public class ServiceController {
             }
         } catch (SQLException e) {
             setInfo(Status.ERROR, "Database did something bad. Search Failed");
-            e.printStackTrace();
         }
         birthdaysTable.refreshTable(foundedFields);
         birthdaysRootView.setInfo(Status.READY);
-
     }
-
 
     //outher
 
@@ -241,6 +236,38 @@ public class ServiceController {
 
     public void showRootMenu() {
         birthdaysRootView.showRootMenu();
+    }
+
+
+    //output API
+    public String getNearestBirthdayMan(){
+        ArrayList<BDayUnit> list = null;
+        String output = "standartvalue";
+        try {
+            list = databaseController.selectAll();
+        }catch (SQLException e){
+            setInfo(Status.WARNING, "Can't get bBoysList");
+        }
+        if(list!=null){
+            BDayUnit temp = list.get(0);
+            for(BDayUnit unit:list){
+                if(temp.getDaysTo()>unit.getDaysTo()){
+                    temp = unit;
+                }
+            }
+            String info = "Days Left: " + temp.getDaysTo();
+            int daysTo = temp.getDaysTo();
+
+            if(temp.getDaysTo()==1){
+                info = "Birthday tomorrow!";
+            }
+            if(temp.getDaysTo()==0){
+                info = "Birthday today!";
+            }
+            output = "Nearest birthday boy: " + temp.getFirstName() + " " + temp.getLastName() + "; " + info;
+        }
+
+        return output;
     }
 
     public static BorderPane start(String moduleResourcesPath) {

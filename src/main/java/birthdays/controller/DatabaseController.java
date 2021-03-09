@@ -5,7 +5,6 @@ import birthdays.model.BDayUnit;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class DatabaseController {
 
@@ -61,10 +60,10 @@ public class DatabaseController {
     public ArrayList<BDayUnit> search(String value) throws SQLException {
 
         String query = "select distinct id, first_name, last_name, b_day, phone_number, description from bdays where " +
-                    "first_name like ('%" + value + "%') or " +
-                    "last_name like ('%" + value + "%') or " +
-                    "b_day like ('%" + value + "%') or " +
-                    "phone_number like ('%" + value + "%')";
+                "first_name like ('%" + value + "%') or " +
+                "last_name like ('%" + value + "%') or " +
+                "b_day like ('%" + value + "%') or " +
+                "phone_number like ('%" + value + "%')";
 
         try (Statement statement = this.connection.createStatement()) {
             ArrayList<BDayUnit> dataList = new ArrayList<>();

@@ -2,11 +2,10 @@ package birthdays.model;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.Hours;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import javax.management.StringValueExp;
-import java.sql.Date;
 import java.util.Objects;
 
 public class BDayUnit implements Comparable<BDayUnit> {
@@ -46,7 +45,8 @@ public class BDayUnit implements Comparable<BDayUnit> {
         daysTo = calculdateDayTo(date);
     }
 
-    public BDayUnit() {}
+    public BDayUnit() {
+    }
 
     public int getId() {
         return id;
@@ -67,16 +67,16 @@ public class BDayUnit implements Comparable<BDayUnit> {
     public String getDate() {
         String day = String.valueOf(date.getDayOfMonth());
         String month = String.valueOf(date.getMonthOfYear());
-         if(day.length()<2){
-             day = "0"+day;
-         }
-         if(month.length()<2){
-             month = "0"+month;
-         }
+        if (day.length() < 2) {
+            day = "0" + day;
+        }
+        if (month.length() < 2) {
+            month = "0" + month;
+        }
         return day + "." + month + "." + date.getYear();
     }
 
-    public DateTime getDateTime(){
+    public DateTime getDateTime() {
         return date;
     }
 
@@ -102,7 +102,7 @@ public class BDayUnit implements Comparable<BDayUnit> {
     }
 
     public void setFullName() {
-        fullName =  lastName + " " + firstName;
+        fullName = lastName + " " + firstName;
     }
 
     public void setDate(String date) {
@@ -122,14 +122,24 @@ public class BDayUnit implements Comparable<BDayUnit> {
     }
 
     private int calculdateDayTo(String date) {
-
         DateTime start = new DateTime();
         DateTime temp = new DateTime(formatter.parseDateTime(date));
-        DateTime end = new DateTime(start.getYear(),temp.getMonthOfYear(), temp.getDayOfMonth(),0,0,0);
+        DateTime end = new DateTime(start.getYear(), temp.getMonthOfYear(), temp.getDayOfMonth(), 0, 0, 1);
 
         int daysBetwen = Days.daysBetween(start, end).getDays();
-        if(daysBetwen<0){
-            end = new DateTime(start.getYear()+1,temp.getMonthOfYear(), temp.getDayOfMonth(),0,0,0);
+            if(daysBetwen==0){
+                int today = start.getDayOfMonth();
+                int bBoyday = temp.getDayOfMonth();
+                if (today == bBoyday) {
+                    daysBetwen = 0;
+                }else{
+                    daysBetwen=1;
+                }
+            }else{
+                daysBetwen++;
+            }
+         if (daysBetwen < 0) {
+            end = new DateTime(start.getYear() + 1, temp.getMonthOfYear(), temp.getDayOfMonth(), 0, 0, 1);
             return Days.daysBetween(start, end).getDays();
         }
         return daysBetwen;

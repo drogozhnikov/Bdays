@@ -38,11 +38,12 @@ public class BackupController {
         return reader.readBdays();
     }
 
-    public void saveToDirectory(String filePath, ArrayList<BDayUnit> inputList)  throws Exception{
+    public void saveToDirectory(String filePath, ArrayList<BDayUnit> inputList) throws Exception {
         XmlWriter writer = new XmlWriter(filePath);
         writer.saveBdays(inputList);
     }
-    public ArrayList<BDayUnit> loadFromDirectory(String filePath)  throws Exception {
+
+    public ArrayList<BDayUnit> loadFromDirectory(String filePath) throws Exception {
         XmlReader reader = new XmlReader(filePath);
         return reader.readBdays();
     }

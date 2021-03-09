@@ -26,16 +26,16 @@ public class XmlWriter {
         file = new File(filePath);
     }
 
-    public void saveBdays(List<BDayUnit> dataBase) throws Exception, NullPointerException{
+    public void saveBdays(List<BDayUnit> dataBase) throws Exception, NullPointerException {
         Document doc = getDoc();
-        Element rootElement = doc.createElementNS("","directory");
+        Element rootElement = doc.createElementNS("", "directory");
         doc.appendChild(rootElement);
 
-        for(BDayUnit unit: dataBase){
-            if(unit.getPhoneNumber() == null){
+        for (BDayUnit unit : dataBase) {
+            if (unit.getPhoneNumber() == null) {
                 unit.setPhoneNumber("");
             }
-            rootElement.appendChild((getLanguage(doc,unit)));
+            rootElement.appendChild((getLanguage(doc, unit)));
         }
 
         DOMSource source = new DOMSource(doc);

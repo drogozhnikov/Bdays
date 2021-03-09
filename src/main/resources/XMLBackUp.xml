@@ -1,21 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <directory>
     <directory>
-        <id>23</id>
+        <id>9</id>
+        <first_name>ToMorrowBoy</first_name>
+        <last_name>ee</last_name>
+        <birthday>09.03.2021</birthday>
+        <phone_num>ToMorrowBoy</phone_num>
+    </directory>
+    <directory>
+        <id>7</id>
+        <first_name>Франсуа</first_name>
+        <last_name>Жопьен</last_name>
+        <birthday>30.06.2005</birthday>
+        <phone_num>+4433-443234</phone_num>
+    </directory>
+    <directory>
+        <id>6</id>
+        <first_name>Мародёр</first_name>
+        <last_name>На пенсии</last_name>
+        <birthday>28.06.1995</birthday>
+        <phone_num>+375-33-839-40-81</phone_num>
+    </directory>
+    <directory>
+        <id>5</id>
+        <first_name>Геральт</first_name>
+        <last_name>из Ривии</last_name>
+        <birthday>20.06.2013</birthday>
+        <phone_num>+375-29-56-30-839</phone_num>
+    </directory>
+    <directory>
+        <id>4</id>
         <first_name>test</first_name>
         <last_name>test</last_name>
         <birthday>30.06.2005</birthday>
         <phone_num/>
     </directory>
     <directory>
-        <id>21</id>
-        <first_name>vbvb</first_name>
-        <last_name>vbvb</last_name>
-        <birthday>15.06.2005</birthday>
-        <phone_num>vbvb</phone_num>
+        <id>3</id>
+        <first_name>Steh</first_name>
+        <last_name>Auf</last_name>
+        <birthday>04.08.2010</birthday>
+        <phone_num>+234-29-543-54-34</phone_num>
     </directory>
     <directory>
-        <id>4</id>
+        <id>2</id>
         <first_name>Ксения</first_name>
         <last_name>Гончарова</last_name>
         <birthday>08.06.2000</birthday>
@@ -23,9 +51,9 @@
     </directory>
     <directory>
         <id>1</id>
-        <first_name>test</first_name>
-        <last_name>test</last_name>
-        <birthday>25.06.2005</birthday>
-        <phone_num>test</phone_num>
+        <first_name>Wolf</first_name>
+        <last_name>Bocker</last_name>
+        <birthday>02.08.2010</birthday>
+        <phone_num>+987654+654</phone_num>
     </directory>
 </directory>

@@ -17,7 +17,7 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class BirthdayTable  extends TableView<BDayUnit> {
+public class BirthdayTable extends TableView<BDayUnit> {
 
     public BirthdayTable() {
         super.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -46,6 +46,7 @@ public class BirthdayTable  extends TableView<BDayUnit> {
         Collections.sort(input);
         ObservableList<BDayUnit> list = FXCollections.observableArrayList(input);
         super.setItems(list);
+        super.refresh();
     }
 
     private void selectCells(ListChangeListener.Change<? extends TablePosition> c) {

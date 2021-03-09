@@ -15,7 +15,7 @@ public class ResourceController {
         this.moduleResourcesPath = moduleResourcesPath;
     }
 
-    public static synchronized ResourceController getInstance(String moduleResourcesPath){
+    public static synchronized ResourceController getInstance(String moduleResourcesPath) {
         if (instance == null) {
             instance = new ResourceController(moduleResourcesPath);
         }

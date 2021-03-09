@@ -19,14 +19,14 @@ public class PropertiesController {
         this.path = filePath;
     }
 
-    public static synchronized PropertiesController getInstance(String filePath){
+    public static synchronized PropertiesController getInstance(String filePath) {
         if (instance == null) {
             instance = new PropertiesController(filePath);
         }
         return instance;
     }
 
-    public static synchronized PropertiesController getInstance(){
+    public static synchronized PropertiesController getInstance() {
         return instance;
     }
 
@@ -57,15 +57,10 @@ public class PropertiesController {
             options.setScreehHeight(getIntValue("screenH"));
             options.setScreenWidth(getIntValue("screenW"));
 
-            options.setPgLength(getIntValue("PG_length"));
-            options.setPgLowCase(getStrValue("PG_lowCase"));
-            options.setPgUpperCase(getStrValue("PG_upCase"));
-            options.setPgNums(getStrValue("PG_numses"));
-
             options.setInstance(options);
         } catch (NumberFormatException e) {
+            throw e;
         }
-
         return options;
     }
 

@@ -11,10 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -64,7 +61,7 @@ public class DataManage extends BorderPane {
         initPosition();
         initCancelButton();
         initFieldsValidation();
-        initClearButoon();
+        initClearButton();
     }
 
     private void initPosition() {
@@ -126,7 +123,7 @@ public class DataManage extends BorderPane {
         inputDescription.setPrefHeight(descriptionFieldSize);
     }
 
-    private void initDatePicker(){
+    private void initDatePicker() {
         inputBirthday.setValue(LocalDate.of(2005, 6, 15));
         inputBirthday.setShowWeekNumbers(true);
     }
@@ -148,6 +145,7 @@ public class DataManage extends BorderPane {
             if (clearWhenAction.isSelected()) {
                 clear();
             }
+            serviceController.setInfo(Status.INFO, serviceController.getNearestBirthdayMan());
         });
     }
 
@@ -159,12 +157,12 @@ public class DataManage extends BorderPane {
             if (validate(newUnit)) {
                 newUnit.setId(selectedUnit.getId());
                 serviceController.update(newUnit);
-                serviceController.refresh();
             }
             hide();
             if (clearWhenAction.isSelected()) {
                 clear();
             }
+            serviceController.setInfo(Status.INFO, serviceController.getNearestBirthdayMan());
         });
     }
 
@@ -175,7 +173,7 @@ public class DataManage extends BorderPane {
         });
     }
 
-    private void initClearButoon() {
+    private void initClearButton() {
         clearButton.setOnAction(event -> clear());
     }
 
@@ -193,20 +191,17 @@ public class DataManage extends BorderPane {
     }
 
     private BDayUnit prepareUnit() {
-        BDayUnit newUnit = new BDayUnit();
-
-        newUnit.setFirstName(inputFirstName.getText());
-        newUnit.setLastName(inputLastName.getText());
-        newUnit.setDate(inputBirthday.getEditor().getText());
-        newUnit.setPhoneNumber(inputPhone.getText());
-        newUnit.setDescription(inputDescription.getText());
-
-        newUnit.setFullName();
-
+        BDayUnit newUnit = new BDayUnit(
+                inputFirstName.getText(),
+                inputLastName.getText(),
+                inputBirthday.getEditor().getText(),
+                inputPhone.getText(),
+                inputDescription.getText()
+        );
         return newUnit;
     }
 
-    private boolean validate(BDayUnit newUnit){
+    private boolean validate(BDayUnit newUnit) {
 
         String fieldsMessage = "";
         if (inputFirstName.getText().length() > firstNameSize) {
@@ -244,7 +239,7 @@ public class DataManage extends BorderPane {
             if (units != null && units.size() > 0) {
                 for (BDayUnit unit : units) {
                     if (unit.getDate().equals(newUnit.getDate()) &&
-                            unit.getFirstName().equals(newUnit.getFirstName())&&
+                            unit.getFirstName().equals(newUnit.getFirstName()) &&
                             unit.getLastName().equals(newUnit.getLastName())
                     ) {
                         exisitingUnitAlert(newUnit);
@@ -265,7 +260,7 @@ public class DataManage extends BorderPane {
     }
 
     private void initUnitData(BDayUnit unit) {
-            DateTime dateTime = unit.getDateTime();
+        DateTime dateTime = unit.getDateTime();
         inputFirstName.setText(unit.getFirstName());
         inputLastName.setText(unit.getLastName());
         inputBirthday.setValue(LocalDate.of(dateTime.getYear(), dateTime.getMonthOfYear(), dateTime.getDayOfMonth()));
@@ -299,7 +294,7 @@ public class DataManage extends BorderPane {
         inputFirstName.clear();
         inputFirstName.clear();
         inputLastName.clear();
-            initDatePicker();
+        initDatePicker();
         inputPhone.clear();
         inputDescription.clear();
     }
