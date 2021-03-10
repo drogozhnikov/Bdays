@@ -1,56 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <directory>
     <directory>
-        <id>9</id>
-        <first_name>ToMorrowBoy</first_name>
-        <last_name>ee</last_name>
-        <birthday>09.03.2021</birthday>
-        <phone_num>ToMorrowBoy</phone_num>
+        <first_name>test</first_name>
+        <last_name>test</last_name>
+        <birthday>15.06.2005</birthday>
+        <phone_num>test</phone_num>
     </directory>
     <directory>
-        <id>7</id>
-        <first_name>Франсуа</first_name>
-        <last_name>Жопьен</last_name>
-        <birthday>30.06.2005</birthday>
-        <phone_num>+4433-443234</phone_num>
+        <first_name>Check</first_name>
+        <last_name>Tempovich</last_name>
+        <birthday>15.06.2005</birthday>
+        <phone_num>+375-29-454-54-54</phone_num>
     </directory>
     <directory>
-        <id>6</id>
-        <first_name>Мародёр</first_name>
-        <last_name>На пенсии</last_name>
-        <birthday>28.06.1995</birthday>
-        <phone_num>+375-33-839-40-81</phone_num>
-    </directory>
-    <directory>
-        <id>5</id>
         <first_name>Геральт</first_name>
         <last_name>из Ривии</last_name>
         <birthday>20.06.2013</birthday>
         <phone_num>+375-29-56-30-839</phone_num>
     </directory>
     <directory>
-        <id>4</id>
-        <first_name>test</first_name>
-        <last_name>test</last_name>
-        <birthday>30.06.2005</birthday>
-        <phone_num/>
-    </directory>
-    <directory>
-        <id>3</id>
         <first_name>Steh</first_name>
         <last_name>Auf</last_name>
         <birthday>04.08.2010</birthday>
         <phone_num>+234-29-543-54-34</phone_num>
     </directory>
     <directory>
-        <id>2</id>
+        <first_name>Stehs</first_name>
+        <last_name>Aufs</last_name>
+        <birthday>04.08.2015</birthday>
+        <phone_num>+234-29-543-54-34</phone_num>
+    </directory>
+    <directory>
         <first_name>Ксения</first_name>
         <last_name>Гончарова</last_name>
         <birthday>08.06.2000</birthday>
         <phone_num/>
     </directory>
     <directory>
-        <id>1</id>
         <first_name>Wolf</first_name>
         <last_name>Bocker</last_name>
         <birthday>02.08.2010</birthday>

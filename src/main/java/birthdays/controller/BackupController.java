@@ -19,7 +19,6 @@ public class BackupController {
     }
 
     public static synchronized BackupController getInstance(String resourcePath) {
-
         if (instance == null) {
             instance = new BackupController(resourcePath);
         }

@@ -4,7 +4,6 @@ import birthdays.controller.ServiceController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class BirthdaysRoot extends Application {
@@ -16,7 +15,6 @@ public class BirthdaysRoot extends Application {
 
     public void start(Stage primaryStage) {
         try {
-
             ServiceController serviceController = ServiceController.getInstance("\\src");
 
             String bdaysIcoPath = serviceController.resourceController.getFilePathNoStatic("Bdays.png");

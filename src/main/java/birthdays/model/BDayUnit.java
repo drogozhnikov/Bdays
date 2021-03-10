@@ -2,7 +2,6 @@ package birthdays.model;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.joda.time.Hours;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -101,10 +100,6 @@ public class BDayUnit implements Comparable<BDayUnit> {
         this.lastName = lastName;
     }
 
-    public void setFullName() {
-        fullName = lastName + " " + firstName;
-    }
-
     public void setDate(String date) {
         this.date = new DateTime(formatter.parseDateTime(date));
     }
@@ -117,28 +112,24 @@ public class BDayUnit implements Comparable<BDayUnit> {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     private int calculdateDayTo(String date) {
         DateTime start = new DateTime();
         DateTime temp = new DateTime(formatter.parseDateTime(date));
         DateTime end = new DateTime(start.getYear(), temp.getMonthOfYear(), temp.getDayOfMonth(), 0, 0, 1);
 
         int daysBetwen = Days.daysBetween(start, end).getDays();
-            if(daysBetwen==0){
-                int today = start.getDayOfMonth();
-                int bBoyday = temp.getDayOfMonth();
-                if (today == bBoyday) {
-                    daysBetwen = 0;
-                }else{
-                    daysBetwen=1;
-                }
-            }else{
-                daysBetwen++;
+        if (daysBetwen == 0) {
+            int today = start.getDayOfMonth();
+            int bBoyday = temp.getDayOfMonth();
+            if (today == bBoyday) {
+                daysBetwen = 0;
+            } else {
+                daysBetwen = 1;
             }
-         if (daysBetwen < 0) {
+        } else {
+            daysBetwen++;
+        }
+        if (daysBetwen < 0) {
             end = new DateTime(start.getYear() + 1, temp.getMonthOfYear(), temp.getDayOfMonth(), 0, 0, 1);
             return Days.daysBetween(start, end).getDays();
         }

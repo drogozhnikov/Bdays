@@ -155,13 +155,13 @@ public class BirthdaysRootView extends BorderPane {
                     } catch (NullPointerException e) {
                         setInfo(Status.CANCELED);
                     }
-                    if (filePath != null && filePath.equals("")) {
+                    if (filePath != null && !filePath.equals("")) {
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Delete fields on DB and load from XMl");
                         alert.setHeaderText("Are you sure want to clear accounts database and load data from xml-backup file?");
                         Optional<ButtonType> option = alert.showAndWait();
 
-                        if (option.get() == ButtonType.OK) {
+                        if (ButtonType.OK == option.get()) {
                             serviceController.loadFromDirectory(filePath);
                             setInfo(Status.READY);
                         } else if (option.get() == ButtonType.CANCEL) {
@@ -184,7 +184,7 @@ public class BirthdaysRootView extends BorderPane {
 
                 Optional<ButtonType> option = alert.showAndWait();
 
-                if (option.get() == ButtonType.OK) {
+                if (ButtonType.OK == option.get()) {
                     serviceController.delete(unit);
                     serviceController.refresh();
                 } else if (option.get() == ButtonType.CANCEL) {
@@ -207,7 +207,7 @@ public class BirthdaysRootView extends BorderPane {
 
             Optional<ButtonType> option = alert.showAndWait();
 
-            if (option.get() == ButtonType.OK) {
+            if (ButtonType.OK == option.get()) {
                 serviceController.delete(unit);
                 serviceController.refresh();
             } else if (option.get() == ButtonType.CANCEL) {

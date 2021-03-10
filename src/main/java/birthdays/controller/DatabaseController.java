@@ -24,7 +24,7 @@ public class DatabaseController {
 
     public ArrayList<BDayUnit> selectAll() throws SQLException {
         try (Statement statement = this.connection.createStatement()) {
-            ArrayList<BDayUnit> dataList = new ArrayList<BDayUnit>();
+            ArrayList<BDayUnit> dataList = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery("SELECT id, first_name, last_name, b_day, phone_number,description FROM bdays");
             while (resultSet.next()) {
                 dataList.add(new BDayUnit(resultSet.getInt("id"),
@@ -36,8 +36,6 @@ public class DatabaseController {
             }
             Collections.reverse(dataList);
             return dataList;
-        } catch (SQLException e) {
-            throw e;
         }
     }
 
@@ -51,9 +49,6 @@ public class DatabaseController {
             statement.setObject(4, unit.getPhoneNumber());
             statement.setObject(5, unit.getDescription());
             statement.execute();
-
-        } catch (SQLException e) {
-            throw e;
         }
     }
 
@@ -86,14 +81,10 @@ public class DatabaseController {
                 "DELETE FROM bdays WHERE id = ?")) {
             statement.setObject(1, id);
             statement.execute();
-        } catch (SQLException e) {
-            throw e;
         }
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "Vacuum;")) {
             statement.execute();
-        } catch (SQLException e) {
-            throw e;
         }
     }
 
@@ -112,8 +103,6 @@ public class DatabaseController {
             statement.setObject(5, unit.getDescription());
             statement.setObject(6, unit.getId());
             statement.executeUpdate();
-        } catch (SQLException e) {
-            throw e;
         }
     }
 
@@ -121,22 +110,15 @@ public class DatabaseController {
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "Vacuum;")) {
             statement.execute();
-        } catch (SQLException e) {
-            throw e;
         }
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "delete from bdays;")) {
             statement.execute();
-        } catch (SQLException e) {
-            throw e;
         }
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'bdays';")) {
             statement.execute();
-        } catch (SQLException e) {
-            throw e;
         }
-
     }
 
 }

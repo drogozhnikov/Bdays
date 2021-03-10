@@ -26,7 +26,7 @@ public class XmlWriter {
         file = new File(filePath);
     }
 
-    public void saveBdays(List<BDayUnit> dataBase) throws Exception, NullPointerException {
+    public void saveBdays(List<BDayUnit> dataBase) throws Exception {
         Document doc = getDoc();
         Element rootElement = doc.createElementNS("", "directory");
         doc.appendChild(rootElement);
@@ -46,8 +46,6 @@ public class XmlWriter {
 
     private static Node getLanguage(Document doc, BDayUnit unit) {
         Element language = doc.createElement("directory");
-//        language.setAttribute("id", String.valueOf(unit.getId()));
-        language.appendChild(getLanguageElements(doc, language, "id", String.valueOf(unit.getId())));
         language.appendChild(getLanguageElements(doc, language, "first_name", unit.getFirstName()));
         language.appendChild(getLanguageElements(doc, language, "last_name", unit.getLastName()));
         language.appendChild(getLanguageElements(doc, language, "birthday", unit.getDate()));
@@ -71,6 +69,7 @@ public class XmlWriter {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
         return transformer;
     }
 }

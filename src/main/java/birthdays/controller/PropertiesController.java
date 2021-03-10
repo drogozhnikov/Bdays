@@ -1,6 +1,5 @@
 package birthdays.controller;
 
-
 import birthdays.model.Options;
 
 import java.awt.*;
@@ -26,50 +25,30 @@ public class PropertiesController {
         return instance;
     }
 
-    public static synchronized PropertiesController getInstance() {
-        return instance;
-    }
-
-    public Options initOptions() throws IOException {
+    public Options initOptions() throws IOException, NullPointerException {
         try {
             fileInputStream = new FileInputStream(path);
             properties.load(fileInputStream);
-        } catch (IOException e) {
-            throw e;
         } finally {
-            try {
-                fileInputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
+            fileInputStream.close();
         }
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Options options = new Options();
-        try {
-            options.setFullScreenHeigth((int) screenSize.getHeight());
-            options.setFullScreenWidth((int) screenSize.getWidth());
+        options.setFullScreenHeigth((int) screenSize.getHeight());
+        options.setFullScreenWidth((int) screenSize.getWidth());
 
-            options.setCdHeigth(getIntValue("changeDataPanelHeigth"));
-            options.setCdWidth(getIntValue("changeDataPanelWidth"));
+        options.setCdHeigth(getIntValue("changeDataPanelHeigth"));
+        options.setCdWidth(getIntValue("changeDataPanelWidth"));
 
-            options.setScreehHeight(getIntValue("screenH"));
-            options.setScreenWidth(getIntValue("screenW"));
+        options.setScreehHeight(getIntValue("screenH"));
+        options.setScreenWidth(getIntValue("screenW"));
 
-            options.setInstance(options);
-        } catch (NumberFormatException e) {
-            throw e;
-        }
+        Options.setInstance(options);
         return options;
     }
 
     public int getIntValue(String valueName) {
         return Integer.parseInt(properties.getProperty(valueName));
-    }
-
-    public String getStrValue(String valueName) {
-        return (properties.getProperty(valueName));
     }
 
 }

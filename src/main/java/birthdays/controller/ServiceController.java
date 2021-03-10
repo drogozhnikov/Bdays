@@ -94,6 +94,7 @@ public class ServiceController {
         try {
             databaseController.deleteUnit(unit.getId());
         } catch (SQLException e) {
+            setInfo(Status.ERROR, "DatabaseDeliteError");
         }
     }
 
@@ -141,8 +142,6 @@ public class ServiceController {
             } else {
                 setInfo(Status.WARNING, "XML-file broken or empty");
             }
-        } catch (SQLException e) {
-            setInfo(Status.ERROR, "Database did something bad or file is corrupted");
         } catch (Exception e) {
             setInfo(Status.ERROR, "Database did something bad or file is corrupted");
         }
@@ -160,8 +159,6 @@ public class ServiceController {
             } else {
                 setInfo(Status.WARNING, "XML-file broken or empty");
             }
-        } catch (SQLException e) {
-            setInfo(Status.ERROR, "Database did something bad or file is corrupted");
         } catch (Exception e) {
             setInfo(Status.ERROR, "Database did something bad or file is corrupted");
         }
@@ -240,28 +237,28 @@ public class ServiceController {
 
 
     //output API
-    public String getNearestBirthdayMan(){
+    public String getNearestBirthdayMan() {
         ArrayList<BDayUnit> list = null;
         String output = "standartvalue";
         try {
             list = databaseController.selectAll();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             setInfo(Status.WARNING, "Can't get bBoysList");
         }
-        if(list!=null){
+        if (list != null) {
             BDayUnit temp = list.get(0);
-            for(BDayUnit unit:list){
-                if(temp.getDaysTo()>unit.getDaysTo()){
+            for (BDayUnit unit : list) {
+                if (temp.getDaysTo() > unit.getDaysTo()) {
                     temp = unit;
                 }
             }
             String info = "Days Left: " + temp.getDaysTo();
             int daysTo = temp.getDaysTo();
 
-            if(temp.getDaysTo()==1){
+            if (temp.getDaysTo() == 1) {
                 info = "Birthday tomorrow!";
             }
-            if(temp.getDaysTo()==0){
+            if (temp.getDaysTo() == 0) {
                 info = "Birthday today!";
             }
             output = "Nearest birthday boy: " + temp.getFirstName() + " " + temp.getLastName() + "; " + info;

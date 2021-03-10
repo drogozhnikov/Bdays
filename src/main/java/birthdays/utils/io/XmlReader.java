@@ -22,7 +22,7 @@ public class XmlReader {
 
     public ArrayList<BDayUnit> readBdays() throws Exception {
         NodeList nodeListTemp = getNodeList(filePath);
-        ArrayList<BDayUnit> BdayUnitsList = new ArrayList<BDayUnit>();
+        ArrayList<BDayUnit> BdayUnitsList = new ArrayList<>();
         for (int i = 1; i < nodeListTemp.getLength(); i++) {
             BdayUnitsList.add(getDirectoryBdaysUnitData(nodeListTemp.item(i)));
         }
@@ -34,47 +34,28 @@ public class XmlReader {
         BDayUnit output = new BDayUnit();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
-//            try {
-//                BDayUnit output2 = new BDayUnit(
-//                        Integer.parseInt(getTagValue("id", element)),
-//                        getTagValue("first_name", element),
-//                        getTagValue("last_name", element),
-//                        new Date(Long.parseLong(getTagValue("birthday", element))),
-//                        getTagValue("phone_num", element)
-//                );
-//                System.out.println(output2.toString());
-//                output = output2;
-//            }catch (NullPointerException e){
-//                e.printStackTrace();
-//            }
-//            try{
-//                output.setId(Integer.parseInt(getTagValue("id", element)));
-//            }catch (NullPointerException e){
-//                System.out.println("id");
-//            }
-
             try {
                 output.setFirstName(getTagValue("first_name", element));
             } catch (NullPointerException e) {
-                System.out.println("id2");
+//                System.out.println("id2");
             }
 
             try {
                 output.setLastName(getTagValue("last_name", element));
             } catch (NullPointerException e) {
-                System.out.println("id3");
+//                System.out.println("id3");
             }
 
             try {
                 output.setDate(getTagValue("birthday", element));
             } catch (NullPointerException e) {
-                System.out.println("id4");
+//                System.out.println("id4");
             }
 
             try {
                 output.setPhoneNumber(getTagValue("phone_num", element));
             } catch (NullPointerException e) {
-                System.out.println("id5");
+//                System.out.println("id5");
             }
 
         }
@@ -90,9 +71,7 @@ public class XmlReader {
         Document document = builder.parse(xmlFile);
         document.getDocumentElement().normalize();
 
-        NodeList nodeListTemp = document.getElementsByTagName("directory");
-
-        return nodeListTemp;
+        return document.getElementsByTagName("directory");
     }
 
     private static String getTagValue(String tag, Element element) {

@@ -191,14 +191,13 @@ public class DataManage extends BorderPane {
     }
 
     private BDayUnit prepareUnit() {
-        BDayUnit newUnit = new BDayUnit(
+        return new BDayUnit(
                 inputFirstName.getText(),
                 inputLastName.getText(),
                 inputBirthday.getEditor().getText(),
                 inputPhone.getText(),
                 inputDescription.getText()
         );
-        return newUnit;
     }
 
     private boolean validate(BDayUnit newUnit) {
@@ -233,7 +232,6 @@ public class DataManage extends BorderPane {
             return false;
         }
 
-        //check new password to existing id db and ask user what he must to do
         if (!actionButton.getText().equals("Save")) {
             ArrayList<BDayUnit> units = serviceController.selectAll();
             if (units != null && units.size() > 0) {
@@ -279,11 +277,11 @@ public class DataManage extends BorderPane {
 
         Optional<ButtonType> option = alert.showAndWait();
 
-        if (option.get() == ButtonType.OK) {
+        if (ButtonType.OK == option.get()) {
             serviceController.create(newUnits);
             serviceController.refresh();
             serviceController.setInfo(Status.READY);
-        } else if (option.get() == ButtonType.CANCEL) {
+        } else if (ButtonType.CANCEL == option.get()) {
             serviceController.setInfo(Status.CANCELED);
         } else {
             serviceController.setInfo(Status.READY);
